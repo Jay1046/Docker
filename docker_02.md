@@ -208,4 +208,4 @@ $ docker build -t my-module ./
 
 $ docker save -o my_module.tar my-module
 ```
-위 실습은 practice 디렉토리에서 진행하였습니다
+위 실습은 practice 디렉토리에서 진행하였습니다.
