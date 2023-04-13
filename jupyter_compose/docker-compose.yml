@@ -1,0 +1,36 @@
+# version: '3.9'
+
+# services:
+#   env-jupyter:
+#     image: jupyter-docker-test 
+#     build: .
+#     volumes: 
+#       - ./work/:/data/app/jupyter
+
+version: "3.9"
+services:
+  jupyter-ds:
+    build:
+      context: .
+      dockerfile: ./jupyter-ds/dockerfile
+    container_name: ds-jupyter
+    ports:
+      - "8891:8891"
+    restart: always
+    volumes:
+      - ./project-ds:/app/project-ds
+    command: jupyter notebook --ip=0.0.0.0 --port=8891 --allow-root --no-browser --NotebookApp.token="123456"
+
+  jupyter_eng:
+    depends_on:
+      - jupyter-ds
+    build:
+      context: .
+      dockerfile: ./jupyter-eng/dockerfile
+    container_name: engineer-jupyter
+    ports:
+      - "8899:8899"
+    restart: always
+    volumes:
+      - ./project-engineer:/app/project-eng
+    command: jupyter notebook --ip=0.0.0.0 --port=8899 --allow-root --no-browser --NotebookApp.token="12345"
